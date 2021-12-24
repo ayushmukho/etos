@@ -16,7 +16,7 @@ import RestaurantItems, {
 const YELP_API_KEY =
   "fnZYccHfkl1b5NBs1MCJ8SAaS4tQ3w6eKB6xtUGjFBEnTXJeYAqR6qlmmzhn5nrEmmLVnNjaHZ6jXdMeWeAAlCqov5m50T8jd02hV9siXbw4x2kKzIiN3DbOGM7CYXYx";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
   const [city, setCity] = useState("LosAngeles");
   const [activeTab, setActiveTab] = useState("Delivery");
@@ -53,7 +53,7 @@ export default function Home() {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
-        <RestaurantItems restaurantData={restaurantData} />
+        <RestaurantItems restaurantData={restaurantData} navigation={navigation} />
       </ScrollView>
       <Divider width={1} />
       <BottomTabs />
