@@ -6,7 +6,7 @@ import OrderItem from "./OrderItem";
 import { db } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-export default function ViewCart() {
+export default function ViewCart({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const { items, restaurantName } = useSelector(
     (state) => state.cartReducer.selectedItems
@@ -27,6 +27,7 @@ export default function ViewCart() {
       restaurantName: restaurantName,
       createdAt: serverTimestamp(),
     });
+    navigation.navigate("OrderCompleted");
   };
 
   const styles = StyleSheet.create({
