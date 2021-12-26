@@ -3,6 +3,9 @@ import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import OrderItem from "./OrderItem";
 
+import { db } from "../../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+
 export default function ViewCart() {
   const [modalVisible, setModalVisible] = useState(false);
   const { items, restaurantName } = useSelector(
@@ -17,6 +20,14 @@ export default function ViewCart() {
     style: "currency",
     currency: "USD",
   });
+
+  const addOrderToFireBase = async () => {
+    await addDoc(collection(db, "orders"), {
+      items: items,
+      restaurantName: restaurantName,
+      createdAt: serverTimestamp(),
+    });
+  };
 
   const styles = StyleSheet.create({
     modalContainer: {
@@ -78,7 +89,7 @@ export default function ViewCart() {
                   position: "relative",
                 }}
                 onPress={() => {
-                  // addOrderToFireBase();
+                  addOrderToFireBase();
                   setModalVisible(false);
                 }}
               >
